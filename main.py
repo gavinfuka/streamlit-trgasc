@@ -28,19 +28,19 @@ st.sidebar.markdown(
 '''
 # Alorithm Parameters
 - order:How many points on each side to use for the comparison to consider comparator(n, n+x) to be True.
-- m: starts from
 - reduceTo : recurrsively find extrema until redeceTo is met
 '''
 )
-order = st.sidebar.slider("Order",min_value=1,max_value=50,value=20)
-m = st.sidebar.slider("m",min_value=100,max_value=250,value=150,step=10)
-reduceTo = st.sidebar.slider("reduceTo",min_value=1,max_value=10,value=5,step=1)
-recursion=st.sidebar.checkbox("recursion",value=True)
+order = st.sidebar.slider("Order",min_value=1,max_value=10,value=4)
+#recursion options
+recursion=st.sidebar.checkbox("recursion",value=False)
+reduceTo = 3 
+if recursion:
+    reduceTo = st.sidebar.slider("reduceTo",min_value=1,max_value=10,value=5,step=1)
 
-if st.sidebar.button('Reset Default'):
-    order=20
-    m=150
-    reduceTo=5
+m = st.sidebar.slider("Starts From",min_value=100,max_value=250,value=200,step=10)
+numExtrema = st.sidebar.slider("No. of Extrema",min_value=2,max_value=10,value=2,step=1)
+
 
 
 if (symbol=="0000.HK"):
@@ -72,7 +72,7 @@ else:
     else:
 
         # load model
-        clsf = TriangleAsc(order=order,m=m,recursion=False,reduceTo=reduceTo)
+        clsf = TriangleAsc(order=order,m=m,recursion=recursion,reduceTo=reduceTo,numExtrema=numExtrema)
 
         # if symbol in priceDict:
         # Classify

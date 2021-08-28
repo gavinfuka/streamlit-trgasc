@@ -4,9 +4,11 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
+import streamlit as st
+
 
 class TriangleAsc:
-    def __init__(self,order=5,m=150,recursion=True,reduceTo=5):
+    def __init__(self,order=5,m=150,recursion=True,reduceTo=5,numExtrema=2):
         '''
         order:How many points on each side to use for the comparison to consider comparator(n, n+x) to be True.
         m: starts from
@@ -18,6 +20,7 @@ class TriangleAsc:
         self.m = m 
         self.recursion = recursion
         self.reduceTo = reduceTo
+        self.numExtrema = numExtrema
 
     def findExtrema(self, x,y , mode='max',order=1, recursion=True):
         if mode == 'min':
@@ -53,9 +56,9 @@ class TriangleAsc:
         self.localmax_x = localmax_x
         self.localmax_y=localmax_y
 
-        m = self.m
-        self.model_localmin.fit(np.array(localmin_x[-m:]).reshape(-1,1),np.array(localmin_y[-m:]).reshape(-1,1))
-        self.model_localmax.fit(np.array(localmax_x[-m:]).reshape(-1,1),np.array(localmax_y[-m:]).reshape(-1,1))
+        numExtrema = self.numExtrema
+        self.model_localmin.fit(np.array(localmin_x[-numExtrema:]).reshape(-1,1),np.array(localmin_y[-numExtrema:]).reshape(-1,1))
+        self.model_localmax.fit(np.array(localmax_x[-numExtrema:]).reshape(-1,1),np.array(localmax_y[-numExtrema:]).reshape(-1,1))
 
 
         return self.model_localmin.coef_[0][0] > self.model_localmax.coef_[0][0] and (self.model_localmin.coef_[0][0]>0)
@@ -72,7 +75,13 @@ class TriangleAsc:
         y_new_max = self.model_localmax.predict(x_new[:, np.newaxis])
         
 
-        
+        m = self.m
+        #local minima 
+        plt.scatter(self.localmin_x[-m:],self.localmin_y[-m:],color='r')
+        #local maxima
+        plt.scatter(self.localmax_x,self.localmax_y,color='g')
+
+
         plt.plot(x_new, y_new_min,label='support')
         plt.plot(x_new, y_new_max,label='resistance')
         plt.legend()
