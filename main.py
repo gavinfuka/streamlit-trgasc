@@ -71,6 +71,13 @@ else:
 
     else:
 
+        # load model
+        clsf = TriangleAsc(order=order,m=m,recursion=recursion,reduceTo=reduceTo,numExtrema=numExtrema)
+
+        # if symbol in priceDict:
+        # Classify
+        isTrgAsc = clsf.Classify(yahoo_data['Close'])
+
         #VCP Conditions
         with st.expander("See conditions"):
             vcp = VCP(yahoo_data,symbol).Evaluate()
@@ -81,15 +88,7 @@ else:
             st.write("Condition 5: Current Price > 50 SMA: ",vcp.Conditions["1"])
             st.write("Condition 6: Current Price is at least 30% above 52 week low (Many of the best are up 100-300% before coming out of consolidation): ",vcp.Conditions["1"])
             st.write("Condition 7: Current Price is within 25% of 52 week high: ",vcp.Conditions["1"])
-
-
-        # load model
-        clsf = TriangleAsc(order=order,m=m,recursion=recursion,reduceTo=reduceTo,numExtrema=numExtrema)
-
-        # if symbol in priceDict:
-        # Classify
-        isTrgAsc = clsf.Classify(yahoo_data['Close'])
-        st.write("Condition 8: is Triangular Ascending: ",isTrgAsc)
+            st.write("Condition 8: is Triangular Ascending: ",isTrgAsc)
 
         # st.write(vcp.isVCP)
 
@@ -115,37 +114,5 @@ else:
 
 
 
-
-
-
-
-
-
-
-
-
-# %%
-# clsf = TriangleAsc(order=20,m=150,recursion=False,reduceTo=5)
-
-# priceDict = {}
-
-# for d in data:
-#     try:
-#         symbol, close, *_ = d.split(':')
-#         symbol, close, *_ = d.split(':')
-#         close = json.loads(close)
-#         priceDict[symbol] = close
-#     except Exception as e :
-#         print(e)       
-# for symbol in filterList['Stock']:
-#     try:
-#         close = priceDict[symbol]
-#         clsf.Classify(close)
-#         clsf.Plot(close,title=symbol)
-#     except Exception as e: 
-#         print(e)
-# #%%
-
-# clsf.Plot(priceDict['0558.HK'],title=symbol)
 
 
