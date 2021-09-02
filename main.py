@@ -82,12 +82,12 @@ else:
         with st.expander("See conditions"):
             vcp = VCP(yahoo_data,symbol).Evaluate()
             st.write("Current Price > 150 SMA and > 200 SMA: ",vcp.Conditions["1"])
-            st.write("Condition 2: 150 SMA and > 200 SMA: ",vcp.Conditions["1"])
-            st.write("Condition 3: 200 SMA trending up for at least 1 month (ideally 4-5 months): ",vcp.Conditions["1"])
-            st.write("Condition 4: 50 SMA> 150 SMA and 50 SMA> 200 SMA: ",vcp.Conditions["1"])
-            st.write("Condition 5: Current Price > 50 SMA: ",vcp.Conditions["1"])
-            st.write("Condition 6: Current Price is at least 30% above 52 week low (Many of the best are up 100-300% before coming out of consolidation): ",vcp.Conditions["1"])
-            st.write("Condition 7: Current Price is within 25% of 52 week high: ",vcp.Conditions["1"])
+            st.write("Condition 2: 150 SMA and > 200 SMA: ",vcp.Conditions["2"])
+            st.write("Condition 3: 200 SMA trending up for at least 1 month (ideally 4-5 months): ",vcp.Conditions["3"])
+            st.write("Condition 4: 50 SMA> 150 SMA and 50 SMA> 200 SMA: ",vcp.Conditions["4"])
+            st.write("Condition 5: Current Price > 50 SMA: ",vcp.Conditions["5"])
+            st.write("Condition 6: Current Price is at least 30% above 52 week low (Many of the best are up 100-300% before coming out of consolidation): ",vcp.Conditions["6"])
+            st.write("Condition 7: Current Price is within 25% of 52 week high: ",vcp.Conditions["7"])
             st.write("Condition 8: is Triangular Ascending: ",isTrgAsc)
 
         # st.write(vcp.isVCP)
