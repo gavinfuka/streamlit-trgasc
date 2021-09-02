@@ -98,7 +98,9 @@ else:
             else:
                 st.write("Conidtions 1 - 7 Met")
             st.write("Rating:",vcp.RS)
-        st.write(" Not Reccomended !")
+
+        else:
+            st.write(" Not Reccomended !")
 
 
         # Plot
