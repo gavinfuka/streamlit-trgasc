@@ -21,6 +21,7 @@ class TriangleAsc:
         self.recursion = recursion
         self.reduceTo = reduceTo
         self.numExtrema = numExtrema
+        self.contractionPattern = []
 
     def findExtrema(self, x,y , mode='max',order=1, recursion=True):
         if mode == 'min':
@@ -82,14 +83,27 @@ class TriangleAsc:
         plt.scatter(self.localmax_x,self.localmax_y,color='g')
 
 
-        plt.plot(x_new, y_new_min,label='support')
-        plt.plot(x_new, y_new_max,label='resistance')
+        for idx in [-3,-2,-1]:
+            x, y1, y2, percent = self.EstContraction(idx)
+            self.contractionPattern.append(percent)
+            plt.plot(x,y1,'--')
+            plt.plot(x,y2,'--')
+            label = str(round(percent*100))+"%"
+            plt.fill_between(x, y1, y2, where=(y1 > y2) , alpha=0.3, label=label)
+            
+
+
+        plt.plot(x_new, y_new_min,label='support',color='r')
+        plt.plot(x_new, y_new_max,label='resistance',color='g')
         plt.legend()
         return fig, ax
 
 
 
-
-
-
-# %%
+    def EstContraction(self,index):
+        x = [self.localmax_x[index],self.localmin_x[index]]
+        y1 = [self.localmax_y[index],self.localmax_y[index]]
+        y2 = [self.localmin_y[index],self.localmin_y[index]]
+        percent = (self.localmax_y[index]-self.localmin_y[index])/self.localmax_y[index] 
+        return x, y1, y2, percent
+        
