@@ -92,10 +92,13 @@ else:
 
         # st.write(vcp.isVCP)
 
-        st.write("Is VCP",vcp.isVCP and isTrgAsc)
-        if (vcp.isVCP and isTrgAsc):
+        if (vcp.isVCP):
+            if (isTrgAsc):
+                st.write("All Conidtions Met")
+            else:
+                st.write("Conidtions 1 - 7 Met")
             st.write("Rating:",vcp.RS)
-
+        st.write(" Not Reccomended !")
 
 
         # Plot
