@@ -87,8 +87,8 @@ class TriangleAsc:
             try:
                 x, y1, y2, percent = self.EstContraction(idx)
                 self.contractionPattern.append(percent)
-                plt.plot(x,y1,'--')
-                plt.plot(x,y2,'--')
+                plt.plot(x,y1,'-')
+                plt.plot(x,y2,'-')
                 label = f"{round(percent*100)}%" 
                 plt.fill_between(x, y1, y2, where=(y1 > y2) , alpha=0.3, label=label)
             except:
