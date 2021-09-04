@@ -104,9 +104,20 @@ class TriangleAsc:
 
 
     def EstContraction(self,index):
-        x = [self.localmax_x[index],self.localmin_x[index]]
-        y1 = [self.localmax_y[index],self.localmax_y[index]]
-        y2 = [self.localmin_y[index],self.localmin_y[index]]
+        max_idx = index
+
+        #cm here
+        # st.write(self.localmax_x[index])
+        # st.write(self.localmin_x[index])
+        if self.localmax_x[max_idx] >  self.localmin_x[index]:
+            max_idx = max_idx-1
+
+        y_max = self.localmax_y[max_idx]
+        y_min = self.localmin_y[index]
+
+        x = [self.localmax_x[max_idx],self.localmin_x[index]]
+        y1 = [y_max,y_max]
+        y2 = [y_min,y_min]
         percent = (self.localmax_y[index]-self.localmin_y[index])/self.localmax_y[index] 
         return x, y1, y2, percent
         
