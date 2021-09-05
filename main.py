@@ -123,7 +123,8 @@ else:
         st.write(Contraction)
 
 
-
+        fig, ax = clsf.PlotContraction(yahoo_data['Close'],symbol)
+        st.pyplot(fig)
 
 
 

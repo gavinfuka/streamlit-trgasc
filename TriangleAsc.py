@@ -80,20 +80,7 @@ class TriangleAsc:
         #local minima 
         plt.scatter(self.localmin_x[-m:],self.localmin_y[-m:],color='r')
         #local maxima
-        plt.scatter(self.localmax_x,self.localmax_y,color='g')
-
-
-        for idx in [-3,-2,-1]:
-            try:
-                x, y1, y2, percent = self.EstContraction(idx)
-                self.contractionPattern.append(percent)
-                plt.plot(x,y1,'-')
-                plt.plot(x,y2,'-')
-                label = f"{round(percent*100)}%" 
-                plt.fill_between(x, y1, y2, where=(y1 > y2) , alpha=0.3, label=label)
-            except:
-                None
-            
+        plt.scatter(self.localmax_x,self.localmax_y,color='g')            
 
 
         plt.plot(x_new, y_new_min,label='support',color='r')
@@ -121,3 +108,22 @@ class TriangleAsc:
         percent = (self.localmax_y[index]-self.localmin_y[index])/self.localmax_y[index] 
         return x, y1, y2, percent
         
+
+    def PlotContraction(self,y,title=''):
+        fig, ax = plt.subplots()
+        x = np.linspace(1,len(y),len(y))
+        plt.plot(x,y)
+        plt.title(title)
+
+        for idx in [-3,-2,-1]:
+            try:
+                x, y1, y2, percent = self.EstContraction(idx)
+                self.contractionPattern.append(percent)
+                plt.plot(x,y1,'-')
+                plt.plot(x,y2,'-')
+                label = f"{round(percent*100)}%" 
+                plt.fill_between(x, y1, y2, where=(y1 > y2) , alpha=0.3, label=label)
+            except:
+                None
+
+        return fig, ax
