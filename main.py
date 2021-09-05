@@ -118,15 +118,13 @@ else:
         st.pyplot(fig)
 
 
-        Contraction = "-->".join([f"{round(i*100)}%" for i in clsf.contractionPattern])
         st.title ("Contraction Pattern")
-        st.write(Contraction)
-
-
         fig, ax = clsf.PlotContraction(yahoo_data['Close'],symbol)
         st.pyplot(fig)
 
+        Contraction = "-->".join([f"{round(i*100)}%" for i in clsf.contractionPattern])
 
+        st.write(Contraction)
 
 
 
