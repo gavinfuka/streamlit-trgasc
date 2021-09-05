@@ -115,6 +115,7 @@ class TriangleAsc:
         plt.plot(x,y)
         plt.title(title)
 
+
         for idx in [-3,-2,-1]:
             try:
                 x, y1, y2, percent = self.EstContraction(idx)
@@ -122,8 +123,10 @@ class TriangleAsc:
                 plt.plot(x,y1,'-')
                 plt.plot(x,y2,'-')
                 label = f"{round(percent*100)}%" 
-                plt.fill_between(x, y1, y2, where=(y1 > y2) , alpha=0.3, label=label)
-            except:
-                None
 
+                plt.fill_between(x, y1, y2, where=(y1 > y2) , alpha=0.3, label=label)
+            except Exception as e:
+                print(e)
+                st.write(e)
+        plt.legend()
         return fig, ax
