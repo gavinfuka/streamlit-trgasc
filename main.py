@@ -8,7 +8,7 @@ yf.pdr_override()
 from VCP import VCP
 
 # Title
-st.title("Stock Suggestor")
+st.title("VCP Checker")
 
 
 # Sidebar input
