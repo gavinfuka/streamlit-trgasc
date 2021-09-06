@@ -123,10 +123,8 @@ class TriangleAsc:
                 plt.plot(x,y1,'-')
                 plt.plot(x,y2,'-')
                 label = f"{round(percent*100)}%" 
-                st.write(len(x),len(y1),len(y2))
                 plt.fill_between(x, y1, y2, where=(y1 > y2) , alpha=0.3, label=label)
             except Exception as e:
                 print(e)
-                st.write(e)
         plt.legend()
         return fig, ax
