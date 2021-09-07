@@ -1,5 +1,6 @@
 import streamlit as st
 from TriangleAsc import TriangleAsc
+from RSEstimator import RSEstimator
 from pandas_datareader import data as pdr
 import yfinance as yf
 import datetime
@@ -8,7 +9,7 @@ yf.pdr_override()
 from VCP import VCP
 
 # Title
-st.title("VCP Checker")
+st.title("Stock Suggestor")
 
 
 # Sidebar input
@@ -40,6 +41,28 @@ if recursion:
 
 m = st.sidebar.slider("Starts From",min_value=100,max_value=250,value=200,step=10)
 numExtrema = st.sidebar.slider("No. of Extrema",min_value=2,max_value=10,value=2,step=1)
+
+@st.cache
+def loadRSEstimator():
+    calc_rs = [
+        32.1, 
+        31.5,
+        21.9,
+        7.2,
+        6.1, 
+        5.7,
+        10.9,
+    ]
+    smith_rs = [
+        99,
+        99,
+        99,
+        88,
+        76,
+        71,
+        94
+    ]
+    return RSEstimator(calc_rs,smith_rs)
 
 
 
@@ -77,10 +100,11 @@ else:
         # if symbol in priceDict:
         # Classify
         isTrgAsc = clsf.Classify(yahoo_data['Close'])
+        vcp = VCP()
+        vcp.Evaluate(yahoo_data,symbol)
 
         #VCP Conditions
         with st.expander("See conditions"):
-            vcp = VCP(yahoo_data,symbol).Evaluate()
             st.write("Condition 1: Current Price > 150 SMA and > 200 SMA")
             st.write("Condition 2: Condition 2: 150 SMA and > 200 SMA")
             st.write("Condition 3: 200 SMA trending up for at least 1 month (ideally 4-5 months)")
@@ -92,7 +116,6 @@ else:
 
         #VCP Conditions
         with st.expander("See results"):
-            vcp = VCP(yahoo_data,symbol).Evaluate()
             st.write("Condition 1: ",vcp.Conditions["1"])
             st.write("Condition 2: ",vcp.Conditions["2"])
             st.write("Condition 3: ",vcp.Conditions["3"])
@@ -107,7 +130,12 @@ else:
                 st.write("All Conidtions Met")
             else:
                 st.write("Conidtions 1 - 7 Met")
-            st.write("Rating:",vcp.RS)
+            st.write("Caculated Rating:",vcp.Rating)
+
+            #estimate rs
+            if region == "HK":
+                rsEstmtr = loadRSEstimator()
+                st.write("Estimated RS:",rsEstmtr.EstSmith(vcp.Rating))
 
         else:
             st.write(" Not Reccomended !")

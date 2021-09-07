@@ -1,10 +1,10 @@
+import streamlit as st
 class VCP:
-    def __init__(self,data,symbol):
-        self.symbol = symbol
-        self.data = data
-
+    def __init__(self):
+        None
 
     def CalculateRS(self,df):
+
         quarter = -63
         try:
             ThreeMthRS = 2* df['Close'][-1]/ df['Close'][-quarter*1-1] 
@@ -12,20 +12,35 @@ class VCP:
             NineMthRS = df['Close'][-1]/df['Close'][-quarter*3-1] 
             TwelveMthRS = df['Close'][-1]/df['Close'][0]
 
-            RS_Rating = ThreeMthRS + SixMthRS + NineMthRS + TwelveMthRS
+            Rating = ThreeMthRS + SixMthRS + NineMthRS + TwelveMthRS
+            return Rating
 
         except:
             print('[x] RS Rating Not caculated. Length of df' + str(len(df)))
-            RS_Rating = 0
+            return 0
 
-        return RS_Rating
+    def calcRS(self,df):
+        quarter = -63
+        try:
+            ThreeMthRS = 2* df[-1]/ df[-quarter*1-1] 
+            SixMthRS =  df[-1]/df[-quarter*2-1] 
+            NineMthRS = df[-1]/df[-quarter*3-1] 
+            TwelveMthRS = df[-1]/df[0]
+
+            Rating = ThreeMthRS + SixMthRS + NineMthRS + TwelveMthRS
+            return Rating
+        except Exception as e:
+            print('[x] RS Rating Not caculated.')
+            print(e)
+            return 0
 
 
-
-    def Evaluate(self):
+    def Evaluate(self,data,symbol):
+        self.symbol = symbol
+        self.data = data
         df = self.data
         try:
-            self.RS = self.CalculateRS(df)   
+            self.Rating = self.CalculateRS(df)   
             sma = [50, 150, 200]
             for x in sma:
                 # ClosingP = df.iloc[:,4]
