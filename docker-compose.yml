@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  streamlit-trgasc:
+    image: streamlit-trgasc
+    container_name: streamlit-trgasc
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
